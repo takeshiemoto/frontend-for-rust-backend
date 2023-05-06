@@ -20,6 +20,12 @@ export async function signup(
   return apiClient().post("/v1/auth/signup", JSON.stringify(payload));
 }
 
-export async function signupVerify(payload: { token: string }) {
-  return apiClient().get(`/auth/signup/verify?token=${payload.token}`);
+type SignupVerifyPayload = {
+  token: string;
+};
+
+export async function signupVerify(
+  payload: SignupVerifyPayload
+): Promise<AxiosResponse<void>> {
+  return apiClient().get(`/v1/auth/signup/verify?token=${payload.token}`);
 }
