@@ -9,23 +9,33 @@ export function apiClient() {
   });
 }
 
-type SignupPayload = {
+type GetRequestOptions<T> = {
+  params: T;
+};
+
+type PostRequestOptions<T> = {
+  payload: T;
+};
+
+type SignupOption = {
   email: string;
   password: string;
 };
 
 export async function signup(
-  payload: SignupPayload
+  options: PostRequestOptions<SignupOption>
 ): Promise<AxiosResponse<void>> {
-  return apiClient().post("/v1/auth/signup", JSON.stringify(payload));
+  return apiClient().post("/v1/auth/signup", JSON.stringify(options.payload));
 }
 
-type SignupVerifyPayload = {
+type SignupVerifyOption = {
   token: string;
 };
 
 export async function signupVerify(
-  payload: SignupVerifyPayload
+  options: GetRequestOptions<SignupVerifyOption>
 ): Promise<AxiosResponse<void>> {
-  return apiClient().get(`/v1/auth/signup/verify?token=${payload.token}`);
+  return apiClient().get(
+    `/v1/auth/signup/verify?token=${options.params.token}`
+  );
 }
