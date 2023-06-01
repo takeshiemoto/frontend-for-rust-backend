@@ -8,7 +8,7 @@ const Signup: NextPage = () => {
   const [isSuccess, setIsSuccess] = useState(false);
 
   const onValid: SubmitHandler<SignupForm> = async (values) => {
-    const response = await signup(values);
+    const response = await signup({ payload: values });
     if (response.status === 200) {
       setIsSuccess(true);
     }
